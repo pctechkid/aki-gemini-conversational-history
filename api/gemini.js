@@ -1,5 +1,5 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const genAI = new GoogleGenerativeAI("AIzaSyCJUTsqENspO1wbyu3Fd1oyP67B0pQnyhw");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY);
 const fs = require("fs");
 const axios = require("axios");
 const pathh = process.cwd() + "/history/gemini.json";
@@ -48,7 +48,7 @@ app.get("", async function (req, res) {
     }
 
     if (prompt === "clear all") {
-      if (uid !== "61550030744931") {
+      if (uid !== process.env.ADMIN_UID) {
         return res.status(403).json({ error: "You do not have permission to use this feature." });
       }
 
