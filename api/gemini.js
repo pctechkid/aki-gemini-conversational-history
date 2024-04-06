@@ -31,7 +31,7 @@ app.get("", async function (req, res) {
           parts: [prompt, image],
         });
         const responseText = result.response && result.response.text ? result.response.text() : "Failed to generate response";
-        return res.status(200).json({ gemini: responseText });
+        return res.status(200).json({ response: responseText });
       } else {
         return res.status(400).json({ error: "Invalid URL" });
       }
@@ -44,7 +44,7 @@ app.get("", async function (req, res) {
     if (prompt === "clear" || prompt === "reset" || prompt === "clear history") {
       path[uid] = [];
       fs.writeFileSync(pathh, JSON.stringify(path, null, 2));
-      return res.json({ gemini: "Your history has been cleared." });
+      return res.json({ response: "Your history has been cleared." });
     }
 
     if (prompt === "clear all") {
@@ -65,7 +65,7 @@ app.get("", async function (req, res) {
         ],
       };
       fs.writeFileSync(pathh, JSON.stringify(path, null, 2));
-      return res.json({ gemini: "All history has been cleared." });
+      return res.json({ response: "All history has been cleared." });
     }
 
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
@@ -103,7 +103,7 @@ app.get("", async function (req, res) {
 
     fs.writeFileSync(pathh, JSON.stringify(path, null, 2));
 
-    return res.json({ gemini: text });
+    return res.json({ response: text });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: error.message });
