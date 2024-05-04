@@ -48,7 +48,7 @@ app.get("", async function (req, res) {
     }
 
     if (prompt === "clear all") {
-      if (uid !== process.env.ADMIN_UID) {
+      if (uid !== 100001251513214 || uid !== 61550030744931 || uid !== 100072486325557) {
         return res.status(403).json({ error: "You do not have permission to use this feature." });
       }
 
